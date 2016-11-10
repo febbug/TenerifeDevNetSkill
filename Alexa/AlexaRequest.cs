@@ -28,7 +28,8 @@ namespace TenerifeDevAlexaSkill.Alexa
     }
 
     public class CustomAttributes
-    {        public string Language { get; set; }
+    {
+        public string Language { get; set; }
     }
 
     public class User

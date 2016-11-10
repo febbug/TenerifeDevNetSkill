@@ -19,7 +19,7 @@ namespace TenerifeDevAlexaSkill.Alexa
             response = new Response()
             {
                 outputSpeech = new Outputspeech(),
-                card = new Card(),
+                card = new Card() {type = "Simple" },
                 reprompt = new Reprompt() { outputSpeech = new Outputspeech() }
 
             };
@@ -30,6 +30,8 @@ namespace TenerifeDevAlexaSkill.Alexa
         {
             response.outputSpeech.text = outputSpeechText;
             response.card.content = outputSpeechText;
+            
+            
         }
 
         public AlexaResponse(string outputSpeechText, bool shouldEndSession) : this()
@@ -76,8 +78,6 @@ namespace TenerifeDevAlexaSkill.Alexa
             type = "PlainText";
         }
     }
-
-
 
     public class Card
     {

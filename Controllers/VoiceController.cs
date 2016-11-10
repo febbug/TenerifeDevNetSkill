@@ -10,6 +10,8 @@ namespace TenerifeDevAlexaSkill.Controllers
 {
     public class VoiceController : ApiController
     {
+
+        private static int lastNumber = -1;
         public AlexaResponse TenerifeDev(AlexaRequest alexaRequest)
         {
             switch (alexaRequest.request.type)
@@ -43,16 +45,39 @@ namespace TenerifeDevAlexaSkill.Controllers
                 case "WhatsMyLanguageIntent":
                     return WhatsMyLanguageHandler(alexaRequest);
                 case "GetRandomNumberIntent":
-                    return GetRandomNumberHandler(alexaRequest);
+                    return GetRandomNumberIntent(alexaRequest);
+                case "GetLastNumberIntent":
+                    return GetLastNumberHandler(alexaRequest);
                 default:
                     return LaunchRequestHandler(alexaRequest);
 
             }
         }
 
-        private AlexaResponse GetRandomNumberHandler(AlexaRequest alexaRequest)
+        private AlexaResponse GetLastNumberHandler(AlexaRequest alexaRequest)
         {
-            throw new NotImplementedException();
+            if (lastNumber == -1)
+                return new AlexaResponse($"Sorry, I can't remember the last random number. Please ask for a new random number by saying, what is a random number between one and sixty.", false);
+            else
+                return new AlexaResponse($"The last random number was {lastNumber}.", true);
+
+        }
+
+        private AlexaResponse GetRandomNumberIntent(AlexaRequest alexaRequest)
+        {
+            var lowLimit = alexaRequest.request.intent.GetSlotValue("LowLimit");
+            var upLimit = alexaRequest.request.intent.GetSlotValue("UpLimit");
+
+            if (lowLimit == null || upLimit == null)
+                return new AlexaResponse($"Sorry, you did not specify the low and up limits for the random number. Please try again.", false);
+
+            int lLimit = int.Parse(lowLimit);
+            int uLimit = int.Parse(upLimit);
+            lastNumber = new Random().Next(lLimit, uLimit);
+
+            var speech = $"The random number between {lLimit} and {uLimit} is {lastNumber}.";
+            return new AlexaResponse(speech, true);
+
         }
 
         private AlexaResponse WhatsMyLanguageHandler(AlexaRequest alexaRequest)
