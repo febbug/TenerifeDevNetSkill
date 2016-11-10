@@ -10,7 +10,6 @@ namespace TenerifeDevAlexaSkill.Controllers
 {
     public class VoiceController : ApiController
     {
-        private static string favoriteLanguage = "";
         public AlexaResponse TenerifeDev(AlexaRequest alexaRequest)
         {
             switch (alexaRequest.request.type)
@@ -58,15 +57,18 @@ namespace TenerifeDevAlexaSkill.Controllers
 
         private AlexaResponse WhatsMyLanguageHandler(AlexaRequest alexaRequest)
         {
-            if (!string.IsNullOrWhiteSpace(favoriteLanguage))
-                return new AlexaResponse($"Your favorite language is {favoriteLanguage}. Goodbye ", true);
+            var lang = alexaRequest.session?.attributes?.Language;
+            if (string.IsNullOrEmpty(lang))
+                return new AlexaResponse($"Your favorite language is {lang}. Goodbye ", true);
             return new AlexaResponse($"I am not sure what your favorite language is. You can tell me by saying, my favorite language is followed by the language you like the most.", false);
         }
 
         private AlexaResponse MyLanguageIsHandler(AlexaRequest alexaRequest)
         {
-            favoriteLanguage = alexaRequest.request.intent.GetSlotValue("Language");
-            return new AlexaResponse($"I now know that your favorite language is {favoriteLanguage}. You can ask what is my favorite language. ", false);
+            var lang = alexaRequest.request.intent.GetSlotValue("Language");
+            var rsp = new AlexaResponse($"I now know that your favorite language is {lang}. You can ask what is my favorite language. ", false);
+            rsp.sessionAttributes.Language = lang;
+            return rsp;
         }
 
         private AlexaResponse SessionEndedRequestHandler(AlexaRequest alexaRequest)

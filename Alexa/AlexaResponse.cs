@@ -10,17 +10,17 @@ namespace TenerifeDevAlexaSkill.Alexa
     {
         public string version { get; set; }
         public Response response { get; set; }
-        public Sessionattributes sessionAttributes { get; set; }
+        public CustomAttributes sessionAttributes { get; set; }
 
         public AlexaResponse()
         {
             version = "1.0";
-            sessionAttributes = new Sessionattributes();
+            sessionAttributes = new CustomAttributes();
             response = new Response()
             {
                 outputSpeech = new Outputspeech(),
                 card = new Card(),
-                reprompt = new Reprompt()
+                reprompt = new Reprompt() { outputSpeech = new Outputspeech() }
 
             };
 
@@ -35,7 +35,7 @@ namespace TenerifeDevAlexaSkill.Alexa
         public AlexaResponse(string outputSpeechText, bool shouldEndSession) : this()
         {
             response.outputSpeech.text = outputSpeechText;
-            
+
 
             if (shouldEndSession)
             {
@@ -70,7 +70,14 @@ namespace TenerifeDevAlexaSkill.Alexa
     {
         public string type { get; set; }
         public string text { get; set; }
+
+        public Outputspeech()
+        {
+            type = "PlainText";
+        }
     }
+
+
 
     public class Card
     {
@@ -81,16 +88,10 @@ namespace TenerifeDevAlexaSkill.Alexa
 
     public class Reprompt
     {
-        public Outputspeech1 outputSpeech { get; set; }
+        public Outputspeech outputSpeech { get; set; }
     }
 
-    public class Outputspeech1
-    {
-        public string type { get; set; }
-    }
 
-    public class Sessionattributes
-    {
-    }
+   
 
 }

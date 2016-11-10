@@ -17,7 +17,7 @@ namespace TenerifeDevAlexaSkill.Alexa
     {
         public string sessionId { get; set; }
         public Application application { get; set; }
-        public Attributes attributes { get; set; }
+        public CustomAttributes attributes { get; set; }
         public User user { get; set; }
         public bool _new { get; set; }
     }
@@ -27,8 +27,8 @@ namespace TenerifeDevAlexaSkill.Alexa
         public string applicationId { get; set; }
     }
 
-    public class Attributes
-    {
+    public class CustomAttributes
+    {        public string Language { get; set; }
     }
 
     public class User
