@@ -20,7 +20,7 @@ using TenerifeDevAlexaSkill.Results;
 namespace TenerifeDevAlexaSkill.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Account")]
+    //[RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
