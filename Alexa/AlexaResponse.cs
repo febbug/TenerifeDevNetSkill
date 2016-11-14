@@ -47,6 +47,8 @@ namespace TenerifeDevAlexaSkill.Alexa
             {
                 response.card = null;
             }
+            response.shouldEndSession = shouldEndSession;
+
         }
 
         public AlexaResponse(string outputSpeechText, string cardContent)

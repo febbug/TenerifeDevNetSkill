@@ -31,7 +31,7 @@ namespace TenerifeDevAlexaSkill.Controllers
 
         private AlexaResponse LaunchRequestHandler(AlexaRequest alexaRequest)
         {
-            return new AlexaResponse("This is tenerife dev skill developed in asp.net web api. Ask for a random number or tell me what is your favorite language. What do you want to do?", false);
+            return new AlexaResponse("This is tenerife dev skill developed in ASP dot net web API. Ask for a random number or tell me what is your favorite language. What do you want to do?", false);
 
 
         }
@@ -48,10 +48,20 @@ namespace TenerifeDevAlexaSkill.Controllers
                     return GetRandomNumberIntent(alexaRequest);
                 case "GetLastNumberIntent":
                     return GetLastNumberHandler(alexaRequest);
+                case "AMAZON.StopIntent":
+                case "AMAZON.CancelIntent":
+                    return SessionEndHandler(alexaRequest);
+                    
                 default:
                     return LaunchRequestHandler(alexaRequest);
 
             }
+        }
+
+        private AlexaResponse SessionEndHandler(AlexaRequest alexaRequest)
+        {
+            return new AlexaResponse("Thank you for your attention. I hope you\'ve learned something today and perhaps will even try to write Alexa skill your self. Have a nice evening!",true);
+            
         }
 
         private AlexaResponse GetLastNumberHandler(AlexaRequest alexaRequest)
@@ -73,7 +83,7 @@ namespace TenerifeDevAlexaSkill.Controllers
 
             int lLimit = int.Parse(lowLimit);
             int uLimit = int.Parse(upLimit);
-            lastNumber = new Random().Next(lLimit, uLimit);
+            lastNumber = new Random().Next(lLimit, uLimit + 1);
 
             var speech = $"The random number between {lLimit} and {uLimit} is {lastNumber}.";
             return new AlexaResponse(speech, true);
@@ -83,7 +93,7 @@ namespace TenerifeDevAlexaSkill.Controllers
         private AlexaResponse WhatsMyLanguageHandler(AlexaRequest alexaRequest)
         {
             var lang = alexaRequest.session?.attributes?.Language;
-            if (string.IsNullOrEmpty(lang))
+            if (!string.IsNullOrEmpty(lang))
                 return new AlexaResponse($"Your favorite language is {lang}. Goodbye ", true);
             return new AlexaResponse($"I am not sure what your favorite language is. You can tell me by saying, my favorite language is followed by the language you like the most.", false);
         }

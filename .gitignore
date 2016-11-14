@@ -3,3 +3,6 @@
 ################################################################################
 
 /Properties/PublishProfiles
+/obj/Debug/Package
+/obj/Debug/CSAutoParameterize
+/obj/Debug/TransformWebConfig
