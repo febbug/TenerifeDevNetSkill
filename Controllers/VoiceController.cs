@@ -50,7 +50,7 @@ namespace TenerifeDevAlexaSkill.Controllers
                     return GetLastNumberHandler(alexaRequest);
                 case "AMAZON.StopIntent":
                 case "AMAZON.CancelIntent":
-                    return SessionEndHandler(alexaRequest);
+                    return new AlexaResponse("", true);
                     
                 default:
                     return LaunchRequestHandler(alexaRequest);

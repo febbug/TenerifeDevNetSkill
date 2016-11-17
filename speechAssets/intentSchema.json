@@ -27,6 +27,13 @@
     },
     {
       "intent": "WhatsMyLanguageIntent"
+    },
+
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
     }
   ]
 }

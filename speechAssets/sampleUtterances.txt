@@ -14,3 +14,4 @@ WhatsMyLanguageIntent What is my favorite language
 WhatsMyLanguageIntent What is my favorite programming language
 WhatsMyLanguageIntent What language do I like the most
 WhatsMyLanguageIntent What language do I absolutely love
+AMAZON.StopIntent that's enough
